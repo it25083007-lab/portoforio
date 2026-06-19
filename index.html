@@ -7,12 +7,13 @@
     <title>THEANH Design - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Thêm Google Fonts: Noto Sans JP (Thanh lịch, nhẹ nhàng, hiện đại) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
     <style>
         /* Áp dụng font chữ mới cho toàn bộ trang */
         body {
@@ -45,9 +46,17 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         .animate-float {
@@ -88,9 +97,17 @@
         }
 
         @keyframes moveGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .modal-overlay {
@@ -121,8 +138,15 @@
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -149,10 +173,21 @@
         }
 
         @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
         }
 
         .animate-blob {
@@ -173,43 +208,60 @@
 
     <nav class="glass-nav text-white py-4 md:py-4 px-6 md:px-8 sticky top-0 z-40 shadow-md">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="text-2xl md:text-xl font-bold tracking-wider" ><a href="#home">THEANH Design</a></div>
+            <div class="text-2xl md:text-xl font-bold tracking-wider"><a href="#home">THEANH Design</a></div>
 
-            <button id="mobile-menu-btn" class="md:hidden text-3xl focus:outline-none p-2 transition-transform active:scale-95">
+            <button id="mobile-menu-btn"
+                class="md:hidden text-3xl focus:outline-none p-2 transition-transform active:scale-95">
                 <i class="fas fa-bars"></i>
             </button>
 
             <div id="nav-links"
                 class="hidden absolute top-full left-0 w-full bg-sky-500/95 md:bg-transparent flex-col items-center space-y-2 py-8 md:static md:w-auto md:flex md:flex-row md:space-y-0 md:space-x-8 md:py-0 transition-all duration-300 shadow-xl md:shadow-none text-xl md:text-base">
-                <a href="#home" class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Home</a>
-                <a href="#about" class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">About</a>
-                <a href="#works" class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Works</a>
-                <a href="#contact" class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Contact</a>
+                <a href="#home"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Home</a>
+                <a href="#about"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">About</a>
+                <a href="#works"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Works</a>
+                <a href="#contact"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Contact</a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="relative bg-sky-50 px-8 min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section id="home"
+        class="relative bg-sky-50 px-8 min-h-screen flex flex-col items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-grid-pattern opacity-40 z-0"></div>
 
-        <div class="absolute top-20 left-10 md:left-40 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob z-0"></div>
-        <div class="absolute top-40 right-10 md:right-40 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 z-0"></div>
-        <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000 z-0"></div>
+        <div
+            class="absolute top-20 left-10 md:left-40 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob z-0">
+        </div>
+        <div
+            class="absolute top-40 right-10 md:right-40 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 z-0">
+        </div>
+        <div
+            class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000 z-0">
+        </div>
 
-        <div class="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 pb-12">
+        <div
+            class="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 pb-12">
             <div class="md:w-1/2 max-w-lg">
-                <span class="inline-block py-1.5 px-4 rounded-full bg-sky-100 text-sky-600 text-sm font-bold tracking-wider mb-6 reveal shadow-sm border border-sky-200">
+                <span
+                    class="inline-block py-1.5 px-4 rounded-full bg-sky-100 text-sky-600 text-sm font-bold tracking-wider mb-6 reveal shadow-sm border border-sky-200">
                     👋 HELLO, I'M
                 </span>
 
-                <h1 class="text-5xl md:text-6xl font-bold tracking-wide text-sky-500 mb-6 drop-shadow-sm reveal" style="transition-delay: 0.1s;">THEANH Design</h1>
+                <h1 class="text-5xl md:text-6xl font-bold tracking-wide text-sky-500 mb-6 drop-shadow-sm reveal"
+                    style="transition-delay: 0.1s;">THEANH Design</h1>
                 <!-- Sửa lỗi ngắt từ bằng class text-ja-keep -->
-                <p class="text-sky-600 mb-10 font-medium h-12 text-lg md:text-xl reveal text-ja-keep" style="transition-delay: 0.2s;">
+                <p class="text-sky-600 mb-10 font-medium h-12 text-lg md:text-xl reveal text-ja-keep"
+                    style="transition-delay: 0.2s;">
                     <span id="typing-text" class="cursor-blink"></span>
                 </p>
 
                 <div class="reveal flex flex-wrap items-center gap-5" style="transition-delay: 0.3s;">
-                    <a href="#about" class="inline-flex items-center justify-center bg-sky-400 text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-sky-300/50 hover:bg-sky-500 hover:-translate-y-1 transition-all duration-300">
+                    <a href="#about"
+                        class="inline-flex items-center justify-center bg-sky-400 text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-sky-300/50 hover:bg-sky-500 hover:-translate-y-1 transition-all duration-300">
                         もっと見る
                     </a>
                 </div>
@@ -222,7 +274,8 @@
             </div>
         </div>
 
-        <a href="#about" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-sky-400 hover:text-sky-600 transition-colors z-20">
+        <a href="#about"
+            class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-sky-400 hover:text-sky-600 transition-colors z-20">
             <span class="text-[10px] font-bold tracking-[0.2em] mb-2">SCROLL</span>
             <i class="fas fa-chevron-down animate-bounce"></i>
         </a>
@@ -233,15 +286,17 @@
 
             <div class="reveal flex-shrink-0">
                 <div class="animate-float-delayed">
-                    <div class="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-8 border-sky-50 shadow-xl">
+                    <div
+                        class="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-8 border-sky-50 shadow-xl">
                         <img src="images/avt.jpg" alt="Profile" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
 
             <div class="flex-1 w-full text-center lg:text-left">
-                
-                <h2 class="text-3xl md:text-4xl font-bold tracking-wide text-sky-500 mb-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 reveal">
+
+                <h2
+                    class="text-3xl md:text-4xl font-bold tracking-wide text-sky-500 mb-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 reveal">
                     <span class="flex items-center gap-2 whitespace-nowrap">
                         <i class="fas fa-user-circle"></i> About
                     </span>
@@ -249,11 +304,13 @@
                     <img src="images/TA.png" class="h-10 md:h-[50px] object-contain ml-2 md:ml-0" alt="TheAnh">
                 </h2>
 
-                <div class="relative bg-gradient-to-r from-sky-50 to-transparent border-l-4 border-sky-400 p-6 md:p-8 rounded-r-2xl mb-10 reveal text-left shadow-sm" style="transition-delay: 0.1s;">
+                <div class="relative bg-gradient-to-r from-sky-50 to-transparent border-l-4 border-sky-400 p-6 md:p-8 rounded-r-2xl mb-10 reveal text-left shadow-sm"
+                    style="transition-delay: 0.1s;">
                     <i class="fas fa-quote-left absolute top-4 right-6 text-sky-200/40 text-4xl hidden sm:block"></i>
-                    
-                    <div class="text-gray-700 font-medium leading-loose text-base md:text-lg z-10 relative text-ja-keep">
-                        <p class="mb-2">こんにちは！アインです。ベトナム出身、20歳です。</p>
+
+                    <div class="text-gray-700 font-medium leading-loose text-base md:text-lg z-10 relative ">
+                        <p class="mb-2">こんにちは！ブイテアインです。</p>
+                        <p class="mb-2">ベトナム出身、20歳です。</p>
                         <p class="mb-2">散歩が好きで、プログラミングやデザインに興味があります。</p>
                         <p>美しいインターフェースや快適なユーザー体験を作ることを目指しています。</p>
                     </div>
@@ -262,13 +319,24 @@
                 <div class="grid md:grid-cols-3 gap-8 text-left">
                     <div>
                         <!-- Đã đồng bộ màu chữ Skill thành text-sky-500 hoàn hảo -->
-                        <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4 reveal" style="transition-delay: 0.2s;">Skill</h3>
+                        <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4 reveal"
+                            style="transition-delay: 0.2s;">Skill</h3>
                         <div class="flex flex-wrap gap-2">
-                            <span class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm" style="transition-delay: 0.3s;"><i class="fab fa-python mr-1"></i> Python</span>
-                            <span class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm" style="transition-delay: 0.35s;"><i class="fab fa-java mr-1"></i> Java</span>
-                            <span class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm" style="transition-delay: 0.4s;"><i class="fab fa-figma mr-1"></i> Figma</span>
-                            <span class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm" style="transition-delay: 0.45s;"><i class="fab fa-html5 mr-1"></i> HTML/CSS</span>
-                            <span class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm" style="transition-delay: 0.5s;"><i class="fab fa-js mr-1"></i> JavaScript</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.3s;"><i class="fab fa-python mr-1"></i> Python</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.35s;"><i class="fab fa-java mr-1"></i> Java</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.4s;"><i class="fab fa-figma mr-1"></i> Figma</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.45s;"><i class="fab fa-html5 mr-1"></i> HTML/CSS</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.5s;"><i class="fab fa-js mr-1"></i> JavaScript</span>
                         </div>
                     </div>
 
@@ -276,7 +344,9 @@
                         <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4">Education</h3>
                         <div class="border-l-2 border-sky-200 pl-4 space-y-4">
                             <div class="relative">
-                                <div class="absolute w-3 h-3 bg-sky-400 rounded-full -left-[23px] top-1.5 border-2 border-white"></div>
+                                <div
+                                    class="absolute w-3 h-3 bg-sky-400 rounded-full -left-[23px] top-1.5 border-2 border-white">
+                                </div>
                                 <h4 class="font-bold text-gray-800 text-ja-keep">専門学校東京ビジネス・アカデミー<br>ITビジネス学科</h4>
                                 <p class="text-sm text-sky-600 font-semibold mt-1">2026 - 現在</p>
                                 <p class="text-sm text-gray-600 mt-2 text-ja-keep">プログラマーを専攻しています。</p>
@@ -288,7 +358,9 @@
                         <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4">Certificate</h3>
                         <div class="border-l-2 border-sky-200 pl-4 space-y-4">
                             <div class="relative">
-                                <div class="absolute w-3 h-3 bg-sky-400 rounded-full -left-[23px] top-1.5 border-2 border-white"></div>
+                                <div
+                                    class="absolute w-3 h-3 bg-sky-400 rounded-full -left-[23px] top-1.5 border-2 border-white">
+                                </div>
                                 <h4 class="font-bold text-gray-800 text-ja-keep">基本情報技術者</h4>
                                 <p class="text-sm text-sky-600 font-semibold mt-1">2026年6月18日 合格</p>
                                 <p class="text-sm text-gray-600 mt-2 text-ja-keep">国家資格である基本情報技術者試験に合格しました。</p>
@@ -303,7 +375,8 @@
     <!-- Khôi phục (revert) chính xác cấu trúc ban đầu của mục Works -->
     <section id="works" class="bg-sky-50 py-24 px-8">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-extrabold text-sky-400 mb-4 text-center reveal" style="margin-bottom: 50px;">Works</h2>
+            <h2 class="text-4xl font-extrabold text-sky-400 mb-4 text-center reveal" style="margin-bottom: 50px;">Works
+            </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
@@ -312,11 +385,16 @@
                     <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="figma_1">
                         <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
                             <div class="h-52 bg-gray-200 overflow-hidden relative">
-                                <img src="images/figma1.png" alt="Figma Project" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
-                                <div class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                                <img src="images/figma1.png" alt="Figma Project"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
                             </div>
                             <div class="p-6 flex-1 flex flex-col">
-                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">Figma課題</h3>
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    Figma課題</h3>
                                 <p class="text-gray-500 text-sm flex-1">前期テストで作成したデザインです。</p>
                                 <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
                             </div>
@@ -329,11 +407,16 @@
                     <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="photoshop">
                         <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
                             <div class="h-52 bg-gray-200 overflow-hidden relative">
-                                <img src="images/photoshop.png" alt="Photoshop Project" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&fit=crop&w=600&q=80'">
-                                <div class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                                <img src="images/photoshop.png" alt="Photoshop Project"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.src='https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&fit=crop&w=600&q=80'">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
                             </div>
                             <div class="p-6 flex-1 flex flex-col">
-                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">photoshop課題</h3>
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    photoshop課題</h3>
                                 <p class="text-gray-500 text-sm flex-1">「自分の好きなもの」をテーマにしたコラージュ作品。</p>
                                 <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
                             </div>
@@ -346,11 +429,16 @@
                     <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="html">
                         <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
                             <div class="h-52 bg-gray-200 overflow-hidden relative">
-                                <img src="images/html1.png" alt="HTML Project" class="w-full h-full object-cover top-0 group-hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
-                                <div class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                                <img src="images/html1.png" alt="HTML Project"
+                                    class="w-full h-full object-cover top-0 group-hover:scale-110 transition duration-500"
+                                    onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
                             </div>
                             <div class="p-6 flex-1 flex flex-col">
-                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">HTMLテスト課題</h3>
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    HTMLテスト課題</h3>
                                 <p class="text-gray-500 text-sm flex-1">シンプルなWebページをデザインしました。</p>
                                 <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
                             </div>
@@ -363,11 +451,16 @@
                     <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="figma_2">
                         <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
                             <div class="h-52 bg-gray-200 overflow-hidden relative">
-                                <img src="images/mimi-logo.png" alt="Figma Project 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
-                                <div class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                                <img src="images/mimi-logo.png" alt="Figma Project 2"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
                             </div>
                             <div class="p-6 flex-1 flex flex-col">
-                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">Figma作品 (耳マーク)</h3>
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    Figma作品 (耳マーク)</h3>
                                 <p class="text-gray-500 text-sm flex-1">50周年記念「耳マーク」募集公募用作品です。</p>
                                 <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
                             </div>
@@ -381,12 +474,15 @@
 
     <section id="contact" class="py-24 px-8 bg-white relative overflow-hidden">
         <div class="absolute top-10 right-10 w-48 h-48 bg-sky-100 rounded-full opacity-50 blur-3xl animate-float"></div>
-        <div class="absolute bottom-10 left-10 w-64 h-64 bg-sky-50 rounded-full opacity-50 blur-3xl animate-float-delayed"></div>
+        <div
+            class="absolute bottom-10 left-10 w-64 h-64 bg-sky-50 rounded-full opacity-50 blur-3xl animate-float-delayed">
+        </div>
 
         <div class="max-w-5xl mx-auto relative z-10">
             <h2 class="text-4xl font-bold tracking-wide text-sky-500 mb-16 text-center reveal">Contact Me</h2>
 
-            <div class="flex flex-col md:flex-row gap-12 bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+            <div
+                class="flex flex-col md:flex-row gap-12 bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
 
                 <div class="md:w-5/12 reveal" style="transition-delay: 0.1s;">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4 text-ja-keep">お気軽にご連絡ください</h3>
@@ -395,16 +491,19 @@
 
                     <div class="space-y-6">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-sky-500 flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-sky-500 flex-shrink-0">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-gray-700">Email</h4>
-                                <p class="text-sky-500 font-medium text-sm hover:underline cursor-pointer">hello@theanh.design</p>
+                                <p class="text-sky-500 font-medium text-sm hover:underline cursor-pointer">
+                                    hello@theanh.design</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-sky-500 flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-sky-500 flex-shrink-0">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div>
@@ -419,18 +518,22 @@
                     <form class="space-y-5" onsubmit="event.preventDefault(); alert('ありがとうございます！メッセージが送信されました。');">
                         <div class="reveal" style="transition-delay: 0.2s;">
                             <label class="block text-gray-700 font-semibold text-sm mb-2">お名前</label>
-                            <input type="text" placeholder="お名前を入力" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
+                            <input type="text" placeholder="お名前を入力" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
                         </div>
                         <div class="reveal" style="transition-delay: 0.3s;">
                             <label class="block text-gray-700 font-semibold text-sm mb-2">Email</label>
-                            <input type="email" placeholder="email@example.com" required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
+                            <input type="email" placeholder="email@example.com" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
                         </div>
                         <div class="reveal" style="transition-delay: 0.4s;">
                             <label class="block text-gray-700 font-semibold text-sm mb-2">メッセージ</label>
-                            <textarea rows="4" placeholder="メッセージをここに入力..." required class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white resize-none transition"></textarea>
+                            <textarea rows="4" placeholder="メッセージをここに入力..." required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white resize-none transition"></textarea>
                         </div>
                         <div class="reveal" style="transition-delay: 0.5s;">
-                            <button type="submit" class="w-full bg-sky-400 text-white font-bold py-4 rounded-xl hover:bg-sky-500 shadow-lg hover:shadow-sky-300/50 transform hover:-translate-y-1 transition duration-300">
+                            <button type="submit"
+                                class="w-full bg-sky-400 text-white font-bold py-4 rounded-xl hover:bg-sky-500 shadow-lg hover:shadow-sky-300/50 transform hover:-translate-y-1 transition duration-300">
                                 送信
                             </button>
                         </div>
@@ -445,10 +548,12 @@
         <p class="font-medium text-gray-300">© 2026 THEANH Design. All rights reserved.</p>
     </footer>
 
-    <div id="work-modal" class="modal-overlay fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4 md:p-10 overflow-y-auto backdrop-blur-sm">
+    <div id="work-modal"
+        class="modal-overlay fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4 md:p-10 overflow-y-auto backdrop-blur-sm">
         <div class="modal-content bg-white w-full max-w-4xl relative rounded-2xl shadow-2xl flex flex-col max-h-[90vh]">
 
-            <button id="close-modal" class="absolute top-4 right-4 bg-gray-100 text-gray-600 w-10 h-10 rounded-full flex items-center justify-center text-xl hover:bg-red-500 hover:text-white transition-colors duration-300 z-10 shadow-sm">
+            <button id="close-modal"
+                class="absolute top-4 right-4 bg-gray-100 text-gray-600 w-10 h-10 rounded-full flex items-center justify-center text-xl hover:bg-red-500 hover:text-white transition-colors duration-300 z-10 shadow-sm">
                 ✕
             </button>
 
@@ -457,7 +562,8 @@
 
                 <div class="bg-sky-50 rounded-xl p-6 mb-8 text-center max-w-3xl mx-auto border border-sky-100">
                     <p id="modal-desc" class="text-gray-700 mb-4 leading-relaxed text-left">詳細</p>
-                    <div class="inline-flex flex-wrap justify-center items-center gap-4 text-sm font-semibold text-sky-600 bg-white px-4 py-2 rounded-full shadow-sm">
+                    <div
+                        class="inline-flex flex-wrap justify-center items-center gap-4 text-sm font-semibold text-sky-600 bg-white px-4 py-2 rounded-full shadow-sm">
                         <span><i class="fas fa-tools mr-2"></i> ツール：<span id="modal-tools"></span></span>
                         <span class="hidden sm:inline text-sky-200">|</span>
                         <span><i class="fas fa-clock mr-2"></i> 制作時間：<span id="modal-time"></span></span>
@@ -491,9 +597,10 @@
                 tools: 'HTML、CSS',
                 time: '90分',
                 images: ['images/html1.png', 'images/html2.png', 'images/html3.png']
-            }, figma_2: {
+            },
+            figma_2: {
                 title: 'Figma作品',
-                desc: '50周年記念「耳マーク」ロゴマーク of 募集公募用作品です。「耳マーク」の文字と「50th ANNIVERSARY」の文字をバランスよく配置し、縮小してバッジや名刺、Webサイト of アイコン等に使用された際にも、見やすさを損なわないようシンプルかつ力強いラインで設計しました。',
+                desc: '50周年記念「耳マーク」ロゴマーク募集公募用作品です。「耳マーク」の文字と「50th ANNIVERSARY」の文字をバランスよく配置し、縮小してバッジや名刺、Webサイト of アイコン等に使用された際にも、見やすさを損なわないようシンプルかつ力強いラインで設計しました。',
                 tools: 'Figma',
                 time: '数時間',
                 images: ['images/mimi-logo.png']
@@ -542,7 +649,7 @@
         });
 
         // Sử dụng ký tự zero-width space (\u200B) để dẫn đường ngắt câu tiếng Nhật cực kỳ thông minh
-        const textToType = "デザインと\u200Bプログラミングの\u200B作品を紹介する\u200Bポートフォリオです";
+        const textToType = "プログラミングとデザインの\u200B作品を紹介する\u200Bポートフォリオです";
         const typingElement = document.getElementById('typing-text');
         let charIndex = 0;
 
@@ -608,4 +715,5 @@
 
     </script>
 </body>
+
 </html>
