@@ -304,16 +304,17 @@
                     <img src="images/TA.png" class="h-10 md:h-[50px] object-contain ml-2 md:ml-0" alt="TheAnh">
                 </h2>
 
-                <div class="relative bg-gradient-to-r from-sky-50 to-transparent border-l-4 border-sky-400 p-6 md:p-8 rounded-r-2xl mb-10 reveal text-left shadow-sm text-ja-keep"
+                <!-- Thêm ID about-text-container để lắng nghe sự kiện cuộn màn hình -->
+                <div id="about-text-container"
+                    class="relative bg-gradient-to-r from-sky-50 to-transparent border-l-4 border-sky-400 p-6 md:p-8 rounded-r-2xl mb-10 reveal text-left shadow-sm"
                     style="transition-delay: 0.1s;">
                     <i class="fas fa-quote-left absolute top-4 right-6 text-sky-200/40 text-4xl hidden sm:block"></i>
 
-                    <div class="text-gray-700 font-medium leading-loose text-base md:text-lg z-10 relative text-ja-keep">
-                        <p class="mb-2">こんにちは！</p>
-                        <p class="mb-2">ブイテアインと申します。</p>
-                        <p class="mb-2">ベトナム出身、20歳です。</p>
-                        <p class="mb-2">プログラミングやデザインに興味があります。</p>
-                        <p>快適なユーザー体験を作ることを目指しています。</p>
+                    <div class="text-gray-700 font-medium leading-snug text-base md:text-lg z-10 relative text-ja-keep">
+                        <p class="mb-2"><span id="about-text-1"></span></p>
+                        <p class="mb-2"><span id="about-text-2"></span></p>
+                        <p class="mb-2"><span id="about-text-3"></span></p>
+                        <p><span id="about-text-4"></span></p>
                     </div>
                 </div>
 
@@ -554,30 +555,30 @@
                 </div>
 
                 <div class="md:w-7/12">
-    <form id="contact-form" class="space-y-5">
-        <div class="reveal" style="transition-delay: 0.2s;">
-            <label class="block text-gray-700 font-semibold text-sm mb-2">お名前</label>
-            <input type="text" name="name" placeholder="お名前を入力" required
-                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
-        </div>
-        <div class="reveal" style="transition-delay: 0.3s;">
-            <label class="block text-gray-700 font-semibold text-sm mb-2">Email</label>
-            <input type="email" name="email" placeholder="email@example.com" required
-                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
-        </div>
-        <div class="reveal" style="transition-delay: 0.4s;">
-            <label class="block text-gray-700 font-semibold text-sm mb-2">メッセージ</label>
-            <textarea rows="4" name="message" placeholder="メッセージをここに入力..." required
-                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white resize-none transition"></textarea>
-        </div>
-        <div class="reveal" style="transition-delay: 0.5s;">
-            <button type="submit"
-                class="w-full bg-sky-400 text-white font-bold py-4 rounded-xl hover:bg-sky-500 shadow-lg hover:shadow-sky-300/50 transform hover:-translate-y-1 transition duration-300">
-                送信
-            </button>
-        </div>
-    </form>
-</div>
+                    <form id="contact-form" class="space-y-5">
+                        <div class="reveal" style="transition-delay: 0.2s;">
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">お名前</label>
+                            <input type="text" name="name" placeholder="お名前を入力" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
+                        </div>
+                        <div class="reveal" style="transition-delay: 0.3s;">
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">Email</label>
+                            <input type="email" name="email" placeholder="email@example.com" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
+                        </div>
+                        <div class="reveal" style="transition-delay: 0.4s;">
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">メッセージ</label>
+                            <textarea rows="4" name="message" placeholder="メッセージをここに入力..." required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white resize-none transition"></textarea>
+                        </div>
+                        <div class="reveal" style="transition-delay: 0.5s;">
+                            <button type="submit"
+                                class="w-full bg-sky-400 text-white font-bold py-4 rounded-xl hover:bg-sky-500 shadow-lg hover:shadow-sky-300/50 transform hover:-translate-y-1 transition duration-300">
+                                送信
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
             </div>
         </div>
@@ -744,6 +745,70 @@
         }
         setTimeout(typeWriter, 500);
 
+        // about
+        // Cấu hình mảng text chứa ký tự ngắt dòng ẩn \u200B tương ứng với từng dòng
+        const aboutLines = [
+            { id: 'about-text-1', text: "こんにちは！" },
+            { id: 'about-text-2', text: "ブイテアインと\u200B申します。\u200Bベトナム出身、\u200B20歳です。" },
+            { id: 'about-text-3', text: "散歩が\u200B好きで、\u200Bプログラミングや\u200Bデザインに\u200B興味があります。" },
+            { id: 'about-text-4', text: "美しい\u200Bインターフェースや\u200B快適な\u200Bユーザー体験を\u200B作ることを\u200B目指しています。" }
+        ];
+        let aboutStarted = false;
+
+        function startAboutTyping() {
+            if (aboutStarted) return;
+            aboutStarted = true;
+
+            let lineIdx = 0;
+            let charIdx = 0;
+
+            function typeLine() {
+                if (lineIdx >= aboutLines.length) return;
+
+                const currentLine = aboutLines[lineIdx];
+                const el = document.getElementById(currentLine.id);
+                if (!el) return;
+
+                // Thêm con trỏ nhấp nháy vào dòng đang gõ
+                el.classList.add('cursor-blink');
+
+                function typeChar() {
+                    if (charIdx < currentLine.text.length) {
+                        let char = currentLine.text.charAt(charIdx);
+                        el.innerHTML += char;
+                        charIdx++;
+                        if (char === '\u200B') {
+                            typeChar(); // Bỏ qua độ trễ nếu gặp ký tự ẩn
+                        } else {
+                            setTimeout(typeChar, 45); // Tốc độ gõ chữ (45ms/ký tự)
+                        }
+                    } else {
+                        // Gõ xong 1 dòng thì xóa con trỏ nhấp nháy, chuyển dòng tiếp theo
+                        el.classList.remove('cursor-blink');
+                        lineIdx++;
+                        charIdx = 0;
+                        setTimeout(typeLine, 250); // Khoảng nghỉ giữa các câu
+                    }
+                }
+                typeChar();
+            }
+            typeLine();
+        }
+
+        // Lắng nghe khi người dùng cuộn tới khu vực About mới kích hoạt hiệu ứng gõ
+        const aboutBox = document.getElementById('about-text-container');
+        if (aboutBox) {
+            const aboutObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    startAboutTyping();
+                    aboutObserver.disconnect(); // Chạy 1 lần duy nhất
+                }
+            }, { threshold: 0.1 });
+            aboutObserver.observe(aboutBox);
+        }
+        // about
+
+
         const revealElements = document.querySelectorAll('.reveal');
         const revealOptions = {
             threshold: 0.1,
@@ -785,66 +850,66 @@
                 }
             });
         });
-       
+
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. KÍCH HOẠT EMAILJS (Thay bằng Public Key lấy trong mục Account > API Keys của bạn)
-    emailjs.init({
-      publicKey: "0vx3MNj7d5ZazuPZz",
-    });
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. KÍCH HOẠT EMAILJS (Thay bằng Public Key lấy trong mục Account > API Keys của bạn)
+            emailjs.init({
+                publicKey: "0vx3MNj7d5ZazuPZz",
+            });
 
-    const contactForm = document.getElementById('contact-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Chặn tải lại trang mặc định
-            
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            // Thay đổi trạng thái nút để tránh click liên tục
-            submitBtn.textContent = '送信中...';
-            submitBtn.disabled = true;
+            const contactForm = document.getElementById('contact-form');
 
-            // Thu thập dữ liệu từ các ô input thông qua thuộc tính 'name'
-            const formData = new FormData(contactForm);
-            const templateParams = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message')
-            };
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (event) {
+                    event.preventDefault(); // Chặn tải lại trang mặc định
 
-            try {
-                // 2. ĐIỀN CÁC THÔNG SỐ ID CỦA BẠN VÀO ĐÂY
-                const SERVICE_ID = 'service_gmjf7bb'; // Ví dụ: 'service_xxxxxx'
-                const TEMPLATE_TO_ME = 'template_8mtdchf';  // Mã ID của mẫu "Contact Us" gửi về cho bạn
-                const TEMPLATE_TO_USER = 'template_hknqsjj'; // Mã ID của mẫu Auto-Reply bạn vừa tạo ở Bước 1
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
 
-                // Kích hoạt gửi đồng thời cả 2 thư chạy song song
-                const sendNotificationToMe = emailjs.send(SERVICE_ID, TEMPLATE_TO_ME, templateParams);
-                const sendConfirmationToUser = emailjs.send(SERVICE_ID, TEMPLATE_TO_USER, templateParams);
+                    // Thay đổi trạng thái nút để tránh click liên tục
+                    submitBtn.textContent = '送信中...';
+                    submitBtn.disabled = true;
 
-                // Đợi cả 2 tác vụ gửi thư hoàn thành thành công
-                await Promise.all([sendNotificationToMe, sendConfirmationToUser]);
+                    // Thu thập dữ liệu từ các ô input thông qua thuộc tính 'name'
+                    const formData = new FormData(contactForm);
+                    const templateParams = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        message: formData.get('message')
+                    };
 
-                alert('ありがとうございます！メッセージが送信されました。');
-                contactForm.reset(); // Xóa sạch dữ liệu trên form sau khi gửi thành công
-                
-            } catch (error) {
-                console.error('EmailJS Error:', error);
-                alert('通信エラーが発生しました。もう一度お試しください。');
-            } finally {
-                // Trả nút bấm về trạng thái ban đầu
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
+                    try {
+                        // 2. ĐIỀN CÁC THÔNG SỐ ID CỦA BẠN VÀO ĐÂY
+                        const SERVICE_ID = 'service_gmjf7bb'; // Ví dụ: 'service_xxxxxx'
+                        const TEMPLATE_TO_ME = 'template_8mtdchf';  // Mã ID của mẫu "Contact Us" gửi về cho bạn
+                        const TEMPLATE_TO_USER = 'template_hknqsjj'; // Mã ID của mẫu Auto-Reply bạn vừa tạo ở Bước 1
+
+                        // Kích hoạt gửi đồng thời cả 2 thư chạy song song
+                        const sendNotificationToMe = emailjs.send(SERVICE_ID, TEMPLATE_TO_ME, templateParams);
+                        const sendConfirmationToUser = emailjs.send(SERVICE_ID, TEMPLATE_TO_USER, templateParams);
+
+                        // Đợi cả 2 tác vụ gửi thư hoàn thành thành công
+                        await Promise.all([sendNotificationToMe, sendConfirmationToUser]);
+
+                        alert('ありがとうございます！メッセージが送信されました。');
+                        contactForm.reset(); // Xóa sạch dữ liệu trên form sau khi gửi thành công
+
+                    } catch (error) {
+                        console.error('EmailJS Error:', error);
+                        alert('通信エラーが発生しました。もう一度お試しください。');
+                    } finally {
+                        // Trả nút bấm về trạng thái ban đầu
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
             }
         });
-    }
-});
-</script>
+    </script>
 </body>
 
 </html>
