@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郵便番号 từ 住所 tự động nhập</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+
+    <div class="bg-white rounded-sm shadow w-full max-w-5xl mx-auto p-10">
+        <div class="border-b border-gray-300 pb-4 mb-8">
+            <h2 class="text-xl font-bold text-gray-800">郵便番号</h2>
+        </div>
+
+        <form id="register-form" onsubmit="return false;">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-8">
+                <!-- Cột 1: Mã bưu điện -->
+                <div>
+                    <label for="zipcode" class="block text-sm font-bold text-gray-800 mb-2">郵便番号（〒）</label>
+                    <div class="relative">
+                        <input type="text" id="zipcode" maxlength="7" placeholder="例: 230245"
+                            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition-colors">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <i id="loading-icon" class="fa-solid fa-spinner fa-spin text-gray-400 hidden"></i>
+                        </div>
+                    </div>
+                    <p id="error-message" class="mt-1.5 text-xs text-red-600 font-bold hidden leading-relaxed">
+                        <i class="fa-solid fa-circle-exclamation mr-1"></i><span id="error-text"></span>
+                    </p>
+                </div>
+
+                <!-- Tỉnh -->
+                <div>
+                    <label for="pref" class="block text-sm font-bold text-gray-800 mb-2">都道府県</label>
+                    <input type="text" id="pref" readonly class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 cursor-not-allowed">
+                </div>
+
+                <!-- Thành phố -->
+                <div>
+                    <label for="city" class="block text-sm font-bold text-gray-800 mb-2">市区</label>
+                    <input type="text" id="city" readonly class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 cursor-not-allowed">
+                </div>
+
+                <!-- Phường/Xã -->
+                <div>
+                    <label for="town" class="block text-sm font-bold text-gray-800 mb-2">町名</label>
+                    <input type="text" id="town" readonly class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 cursor-not-allowed">
+                </div>
+
+                <div>
+                    <label for="street" class="block text-sm font-bold text-gray-800 mb-2">丁目・番地</label>
+                    <input type="text" id="street" class="w-full px-3 py-2 border border-gray-300 rounded">
+                </div>
+
+                <div>
+                    <label for="building" class="block text-sm font-bold text-gray-800 mb-2">建物名</label>
+                    <input type="text" id="building" class="w-full px-3 py-2 border border-gray-300 rounded">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- PHẦN XỬ LÝ ĐÃ ĐƯỢC THAY ĐỔI SANG DÙNG API CÔNG KHAI -->
+    <script>
+        class ZipcodeToAddress {
+            constructor(options) {
+                this.zipInput = document.getElementById(options.zipId);
+                this.prefInput = document.getElementById(options.prefId);
+                this.cityInput = document.getElementById(options.cityId);
+                this.townInput = document.getElementById(options.townId);
+                this.errorArea = document.getElementById(options.errorAreaId);
+                this.errorText = document.getElementById(options.errorTextId);
+                this.loadingIcon = document.getElementById(options.loadingIconId);
+                
+                // Thay đổi đường dẫn sang API công khai của Zipcloud Nhật Bản
+                this.apiPath = 'https://zipcloud.ibsnet.co.jp/api/search';
+                this.lastProcessedValue = ''; 
+                this.init();
+            }
+
+            init() {
+                if (!this.zipInput) return;
+
+                this.zipInput.addEventListener('input', (e) => {
+                    let value = e.target.value;
+                    // Chuẩn hóa số
+                    value = value.replace(/[０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+                    value = value.replace(/[^0-9]/g, '');
+                    e.target.value = value;
+
+                    if (value.length === 7) {
+                        if (value !== this.lastProcessedValue) {
+                            this.fetchAddress(value);
+                            this.lastProcessedValue = value;
+                        }
+                    } else {
+                        this.hideError();
+                        this.clearAddress();
+                        this.lastProcessedValue = '';
+                    }
+                });
+            }
+
+            async fetchAddress(zipcode) {
+                this.showLoading();
+                this.hideError();
+
+                try {
+                    // Gọi dữ liệu từ API công khai
+                    const response = await fetch(`${this.apiPath}?zipcode=${zipcode}`);
+                    const result = await response.json();
+
+                    // Zipcloud trả về status 200 và mảng results chứa thông tin địa chỉ
+                    if (result.status === 200 && result.results && result.results.length > 0) {
+                        const data = result.results[0];
+                        // address1: Tỉnh, address2: Thành phố, address3: Phường/Xã
+                        this.fillAddress(data.address1, data.address2, data.address3);
+                        this.hideError();
+                    } else {
+                        this.showError('該当する住所が見つかりませんでした。');
+                        this.clearAddress();
+                    }
+                } catch (error) {
+                    this.showError('通信エラーが発生しました。');
+                    this.clearAddress();
+                } finally {
+                    this.hideLoading();
+                }
+            }
+
+            fillAddress(pref, city, town) {
+                this.prefInput.value = pref || '';
+                this.cityInput.value = city || '';
+                this.townInput.value = town || '';
+            }
+
+            clearAddress() {
+                this.prefInput.value = '';
+                this.cityInput.value = '';
+                this.townInput.value = '';
+            }
+
+            showError(message) {
+                this.errorText.textContent = message;
+                this.errorArea.classList.remove('hidden');
+                this.zipInput.classList.add('border-red-500');
+            }
+
+            hideError() {
+                this.errorArea.classList.add('hidden');
+                this.zipInput.classList.remove('border-red-500');
+            }
+
+            showLoading() {
+                this.loadingIcon.classList.remove('hidden');
+            }
+
+            hideLoading() {
+                this.loadingIcon.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new ZipcodeToAddress({
+                zipId: 'zipcode',
+                prefId: 'pref',
+                cityId: 'city',
+                townId: 'town',
+                errorAreaId: 'error-message',
+                errorTextId: 'error-text',
+                loadingIconId: 'loading-icon'
+            });
+        });
+    </script>
+</body>
+</html>
