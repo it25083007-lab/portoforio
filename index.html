@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THEANH Design - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Thêm Google Fonts: Noto Sans JP (Thanh lịch, nhẹ nhàng, hiện đại) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Áp dụng font chữ mới cho toàn bộ trang */
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* Thêm class hỗ trợ tiếng Nhật không bị gãy chữ */
+        .text-ja-keep {
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        /* Navbar kính trong suốt tối ưu */
+        .glass-nav {
+            background: rgba(56, 189, 248, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Hiệu ứng Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float 4s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .gradient-border-card {
+            position: relative;
+            border-radius: 1rem;
+            z-index: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .gradient-border-card::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: 1.25rem;
+            background: linear-gradient(90deg, #00f2fe, #4facfe, #818cf8, #c084fc, #00f2fe);
+            background-size: 300% 300%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            animation: moveGradient 3s linear infinite;
+        }
+
+        .gradient-border-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .gradient-border-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes moveGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active .modal-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .cursor-blink::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(circle, #bae6fd 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 bg-white antialiased font-normal">
+
+    <nav class="glass-nav text-white py-4 md:py-4 px-6 md:px-8 sticky top-0 z-40 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-2xl md:text-xl font-bold tracking-wider"><a href="#home">THEANH Design</a></div>
+
+            <button id="mobile-menu-btn"
+                class="md:hidden text-3xl focus:outline-none p-2 transition-transform active:scale-95">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div id="nav-links"
+                class="hidden absolute top-full left-0 w-full bg-sky-500/95 md:bg-transparent flex-col items-center space-y-2 py-8 md:static md:w-auto md:flex md:flex-row md:space-y-0 md:space-x-8 md:py-0 transition-all duration-300 shadow-xl md:shadow-none text-xl md:text-base">
+                <a href="#home"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Home</a>
+                <a href="#about"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">About</a>
+                <a href="#works"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Works</a>
+                <a href="#contact"
+                    class="w-full text-center py-3 md:py-0 hover:bg-sky-600/50 md:hover:bg-transparent hover:text-sky-200 transition-colors font-medium nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home"
+        class="relative bg-sky-50 px-8 min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern opacity-40 z-0"></div>
+
+        <div
+            class="absolute top-20 left-10 md:left-40 w-72 h-72 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob z-0">
+        </div>
+        <div
+            class="absolute top-40 right-10 md:right-40 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 z-0">
+        </div>
+        <div
+            class="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000 z-0">
+        </div>
+
+        <div
+            class="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 pb-12">
+            <div class="md:w-1/2 max-w-lg">
+                <span
+                    class="inline-block py-1.5 px-4 rounded-full bg-sky-100 text-sky-600 text-sm font-bold tracking-wider mb-6 reveal shadow-sm border border-sky-200">
+                    👋 HELLO, I'M
+                </span>
+
+                <h1 class="text-5xl md:text-6xl font-bold tracking-wide text-sky-500 mb-6 drop-shadow-sm reveal"
+                    style="transition-delay: 0.1s;">THEANH Design</h1>
+                <!-- Sửa lỗi ngắt từ bằng class text-ja-keep -->
+                <p class="text-sky-600 mb-10 font-medium h-12 text-lg md:text-xl reveal text-ja-keep"
+                    style="transition-delay: 0.2s;">
+                    <span id="typing-text" class="cursor-blink"></span>
+                </p>
+
+                <div class="reveal flex flex-wrap items-center gap-5" style="transition-delay: 0.3s;">
+                    <a href="#about"
+                        class="inline-flex items-center justify-center bg-sky-400 text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-sky-300/50 hover:bg-sky-500 hover:-translate-y-1 transition-all duration-300">
+                        もっと見る
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:w-1/2 flex justify-center reveal" style="transition-delay: 0.4s;">
+                <div class="w-full aspect-[516/328]">
+                    <img src="images/mv.png" alt="Hero Image" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+
+        <a href="#about"
+            class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-sky-400 hover:text-sky-600 transition-colors z-20">
+            <span class="text-[10px] font-bold tracking-[0.2em] mb-2">SCROLL</span>
+            <i class="fas fa-chevron-down animate-bounce"></i>
+        </a>
+    </section>
+
+    <section id="about" class="py-24 px-8 max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-center lg:items-start gap-12">
+
+            <div class="reveal flex-shrink-0 mt-0 md:mt-[100px]">
+                <div class="animate-float-delayed">
+                    <div
+                        class="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-8 border-sky-50 shadow-xl">
+                        <img src="images/avt.jpg" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 w-full text-center lg:text-left">
+
+                <h2
+                    class="text-3xl md:text-4xl font-bold tracking-wide text-sky-500 mb-8 flex flex-wrap items-center justify-center lg:justify-start gap-3 reveal">
+                    <span class="flex items-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-user-circle"></i> About
+                    </span>
+                    <span class="text-sky-200 font-light hidden md:inline">|</span>
+                    <img src="images/TA.png" class="h-10 md:h-[50px] object-contain ml-2 md:ml-0" alt="TheAnh">
+                </h2>
+
+                <!-- Thêm ID about-text-container để lắng nghe sự kiện cuộn màn hình -->
+                <div id="about-text-container"
+                    class="relative bg-gradient-to-r from-sky-50 to-transparent border-l-4 border-sky-400 p-6 md:p-8 rounded-r-2xl mb-10 reveal text-left shadow-sm"
+                    style="transition-delay: 0.1s;">
+                    <i class="fas fa-quote-left absolute top-4 right-6 text-sky-200/40 text-4xl hidden sm:block"></i>
+
+                    <!-- Thêm class text-ja-keep xử lý ngắt dòng thông minh -->
+                    <div
+                        class="text-gray-700 font-medium leading-loose text-base md:text-lg z-10 relative text-ja-keep">
+                        <p class="mb-2"><span id="about-text-1"></span></p>
+                        <p class="mb-2"><span id="about-text-2"></span></p>
+                        <p class="mb-2"><span id="about-text-3"></span></p>
+                        <p><span id="about-text-4"></span></p>
+                    </div>
+
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 text-left">
+                    <div>
+                        <!-- Đã đồng bộ màu chữ Skill thành text-sky-500 hoàn hảo -->
+                        <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4 reveal"
+                            style="transition-delay: 0.2s;">Skill</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.3s;"><i class="fab fa-python mr-1"></i> Python</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.35s;"><i class="fab fa-java mr-1"></i> Java</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.4s;"><i class="fab fa-figma mr-1"></i> Figma</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.45s;"><i class="fab fa-html5 mr-1"></i> HTML/CSS</span>
+                            <span
+                                class="reveal bg-sky-50 border border-sky-100 text-sky-600 px-4 py-2 rounded-lg text-sm font-bold shadow-sm"
+                                style="transition-delay: 0.5s;"><i class="fab fa-js mr-1"></i> JavaScript</span>
+                        </div>
+                    </div>
+
+                    <div class="reveal" style="transition-delay: 0.4s;">
+                        <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4">Education</h3>
+                        <div class="border-l-2 border-sky-200 pl-4 space-y-4">
+                            <div class="relative">
+                                <div
+                                    class="absolute w-3 h-3 bg-sky-400 rounded-full -left-[23px] top-1.5 border-2 border-white">
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-ja-keep">専門学校東京ビジネス・アカデミー<br>ITビジネス学科</h4>
+                                <p class="text-sm text-sky-600 font-semibold mt-1">2026 - 現在</p>
+                                <p class="text-sm text-gray-600 mt-2 text-ja-keep">プログラマーを専攻しています。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal" style="transition-delay: 0.45s;">
+                        <h3 class="text-2xl md:text-xl font-bold text-sky-500 mb-4">Certificate</h3>
+                        <div class="border-l-2 border-sky-200 pl-4 space-y-4">
+                            <div class="relative">
+                                <div
+                                    class="absolute w-3 h-3 bg-sky-400 rounded-full -left-[23px] top-1.5 border-2 border-white">
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-ja-keep">基本情報技術者</h4>
+                                <p class="text-sm text-sky-600 font-semibold mt-1">2026年6月 合格</p>
+                                <p class="text-sm text-gray-600 mt-2 text-ja-keep">国家資格である基本情報技術者試験に合格しました。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Khôi phục (revert) chính xác cấu trúc ban đầu của mục Works -->
+    <section id="works" class="bg-sky-50 py-24 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-extrabold text-sky-400 mb-4 text-center reveal" style="margin-bottom: 50px;">Works
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+                <!-- Card 1 -->
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="figma_1">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
+                            <div class="h-52 bg-gray-200 overflow-hidden relative">
+                                <img src="images/figma1.png" alt="Figma Project"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                                    onerror="this.src='https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80'">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    Figma課題</h3>
+                                <p class="text-gray-500 text-sm flex-1">前期テストで作成したデザインです。</p>
+                                <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="photoshop">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
+                            <div class="h-52 bg-gray-200 overflow-hidden relative">
+                                <img src="images/photoshop.png" alt="Photoshop Project"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    photoshop課題</h3>
+                                <p class="text-gray-500 text-sm flex-1">「自分の好きなもの」をテーマにしたコラージュ作品。</p>
+                                <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+                <!-- Card 4 -->
+                <div class="reveal" style="transition-delay: 0.5s;">
+                    <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="figma_2">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
+                            <div class="h-52 bg-gray-200 overflow-hidden relative">
+                                <img src="images/mimi-logo.png" alt="Figma Project 2"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    Figma作品 </h3>
+                                <p class="text-gray-500 text-sm flex-1">50周年記念「耳マーク」募集公募用作品です。</p>
+                                <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="reveal" style="transition-delay: 0.4s;">
+                    <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="html">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
+                            <div class="h-52 bg-gray-200 overflow-hidden relative">
+                                <img src="images/html1.png" alt="HTML Project"
+                                    class="w-full h-full object-cover top-0 group-hover:scale-110 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    HTMLテスト課題</h3>
+                                <p class="text-gray-500 text-sm flex-1">シンプルなWebページをデザインしました。</p>
+                                <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Card 5 -->
+                <div class="reveal" style="transition-delay: 0.5s;">
+                    <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="delop1">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
+                            <div class="h-52 bg-gray-200 overflow-hidden relative">
+                                <img src="images/form.png" alt=""
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    システム開発課題</h3>
+                                <p class="text-gray-500 text-sm flex-1">郵便番号による自動入力フォームを作りました。</p>
+                                <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 
+                <div class="reveal" style="transition-delay: 0.5s;">
+                    <div class="gradient-border-card cursor-pointer group card-work animate-card" data-work="delop2">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-lg h-full relative z-10 flex flex-col">
+                            <div class="h-52 bg-gray-200 overflow-hidden relative">
+                                <img src="images/game.png" alt=""
+                                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div
+                                    class="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <h3 class="text-xl font-bold text-sky-500 mb-2 group-hover:text-sky-600 transition">
+                                    2Dゲーム作品</h3>
+                                <p class="text-gray-500 text-sm flex-1">2Dゲームのマップを作りました</p>
+                                <span class="inline-block mt-4 text-sky-400 font-semibold text-sm">もっと見る &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-8 bg-white relative overflow-hidden">
+        <div class="absolute top-10 right-10 w-48 h-48 bg-sky-100 rounded-full opacity-50 blur-3xl animate-float"></div>
+        <div
+            class="absolute bottom-10 left-10 w-64 h-64 bg-sky-50 rounded-full opacity-50 blur-3xl animate-float-delayed">
+        </div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            <h2 class="text-4xl font-bold tracking-wide text-sky-500 mb-16 text-center reveal">Contact Me</h2>
+
+            <div
+                class="flex flex-col md:flex-row gap-12 bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+
+                <div class="md:w-5/12 reveal" style="transition-delay: 0.1s;">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4 text-ja-keep">お気軽にご連絡ください</h3>
+                    <p class="text-gray-600 mb-8 leading-relaxed  text-base"><!-- text-ja-keep -->
+                        ご質問やプロジェクトのご相談などございましたら、フォームよりメッセージをお送りください。折り返しご連絡いたします。</p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-sky-500 flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-700">Email</h4>
+                                <p class="text-sky-500 font-medium text-sm hover:underline cursor-pointer">
+                                    hello@theanh.design</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-12 h-12 bg-sky-50 rounded-full flex items-center justify-center text-sky-500 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-700">Location</h4>
+                                <p class="text-gray-500 text-sm">Shibuya, Tokyo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-7/12">
+                    <form id="contact-form" class="space-y-5">
+                        <div class="reveal" style="transition-delay: 0.2s;">
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">お名前</label>
+                            <input type="text" name="name" placeholder="お名前を入力" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
+                        </div>
+                        <div class="reveal" style="transition-delay: 0.3s;">
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">Email</label>
+                            <input type="email" name="email" placeholder="email@example.com" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white transition" />
+                        </div>
+                        <div class="reveal" style="transition-delay: 0.4s;">
+                            <label class="block text-gray-700 font-semibold text-sm mb-2">メッセージ</label>
+                            <textarea rows="4" name="message" placeholder="メッセージをここに入力..." required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 text-gray-700 bg-gray-50 hover:bg-white resize-none transition"></textarea>
+                        </div>
+                        <div class="reveal" style="transition-delay: 0.5s;">
+                            <button type="submit"
+                                class="w-full bg-sky-400 text-white font-bold py-4 rounded-xl hover:bg-sky-500 shadow-lg hover:shadow-sky-300/50 transform hover:-translate-y-1 transition duration-300">
+                                送信
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white text-center py-10 border-t-4 border-sky-500">
+        <p class="font-medium text-gray-300">© 2026 THEANH Design. All rights reserved.</p>
+    </footer>
+
+    <div id="work-modal"
+        class="modal-overlay fixed inset-0 bg-black/70 z-50 flex justify-center items-center p-4 md:p-10 overflow-y-auto backdrop-blur-sm">
+        <div class="modal-content bg-white w-full max-w-4xl relative rounded-2xl shadow-2xl flex flex-col max-h-[90vh]">
+
+            <button id="close-modal"
+                class="absolute top-4 right-4 bg-gray-100 text-gray-600 w-10 h-10 rounded-full flex items-center justify-center text-xl hover:bg-red-500 hover:text-white transition-colors duration-300 z-10 shadow-sm">
+                ✕
+            </button>
+
+            <div class="p-8 md:p-12 overflow-y-auto custom-scrollbar">
+                <h2 id="modal-title" class="text-3xl font-bold tracking-wide text-sky-500 text-center mb-4">タイトル</h2>
+
+                <div class="bg-sky-50 rounded-xl p-6 mb-8 text-center max-w-3xl mx-auto border border-sky-100">
+                    <p id="modal-desc" class="text-gray-700 mb-4 leading-relaxed text-left">詳細</p>
+                    <div
+                        class="inline-flex flex-wrap justify-center items-center gap-4 text-sm font-semibold text-sky-600 bg-white px-4 py-2 rounded-full shadow-sm">
+                        <span><i class="fas fa-tools mr-2"></i> ツール：<span id="modal-tools"></span></span>
+                        <span class="hidden sm:inline text-sky-200">|</span>
+                        <span><i class="fas fa-clock mr-2"></i> 制作時間：<span id="modal-time"></span></span>
+                    </div>
+                </div>
+
+                <div id="modal-images" class="w-full flex flex-col gap-6"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const workData = {
+            figma_1: {
+                title: 'Figma作品',
+                desc: '前期テストで作成したデザインです。先生から支給された完成品を参考にし、制限時間3時間の中でできるだけ近いデザインを再現する課題でした。',
+                tools: 'Figma',
+                time: '90分',
+                images: ['images/figma1.png', 'images/figma2.png']
+            },
+
+            figma_2: {
+                title: 'Figma作品',
+                desc: '50周年記念耳マーク」ロゴマーク募集公募用作品です。耳マークの文字と50thANNIVERSARYの文字をバランスよく配置し、縮小してバッジや名刺、Webサイトのアイコン等に使用された際にも、見やすさを損なわないようシンプルかつ力強いラインで設計しました。',
+                tools: 'Figma',
+                time: '数時間',
+                images: ['images/mimi-logo.png']
+            },
+            photoshop: {
+                title: '好きなマップ',
+                desc: '授業で、「自分の好きなもの」をテーマにしたコラージュ作品を制作しました。食べ物やアニメキャラクター、音楽など、日常の中で自分がときめくものの画像を集め、レイアウトや色のバランスu を意識しながら一枚の“好きなものマップ”にまとめています。制作の中では、切り抜きやレイヤーマスク、影付けなどの基本的な機能を使いこなすことを意識し、自分らしさが伝わるように配置や構図にも工夫をしました。',
+                tools: 'photoshop',
+                time: '90分',
+                images: ['images/photoshop.png']
+            },
+            html: {
+                title: 'HTML作品',
+                desc: 'シンプルなWebページをデザインしました。色数を絞りつつアクセントカラーを決めることで、読みやすさと視認性の高いレイアウトを目指しました。',
+                tools: 'HTML、CSS',
+                time: '90分',
+                images: ['images/html1.png', 'images/html2.png', 'images/html3.png']
+            },
+            delop1: {
+                title: 'HTML作品',
+                desc: '郵便番号による自動入力フォームを作りました。郵便番号を入力してみてください',
+                tools: 'HTML',
+                time: '2時間',
+                iframe: 'works/work1/index.html',
+                images: []
+            },
+            delop2: {
+                title: '2Dゲーム作品',
+                desc: '',
+                tools: 'HTML・Java Script',
+                time: '4時間',
+
+                images: ['images/game.png']
+            }
+        };
+
+        const modalOverlay = document.getElementById('work-modal');
+        const btnClose = document.getElementById('close-modal');
+        const cards = document.querySelectorAll('.card-work');
+        const mTitle = document.getElementById('modal-title');
+        const mDesc = document.getElementById('modal-desc');
+        const mTools = document.getElementById('modal-tools');
+        const mTime = document.getElementById('modal-time');
+        const mImages = document.getElementById('modal-images');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const type = card.getAttribute('data-work');
+                const data = workData[type];
+
+                if (data) {
+                    mTitle.textContent = data.title;
+                    mDesc.textContent = data.desc;
+                    mTools.textContent = data.tools;
+                    mTime.textContent = data.time;
+
+                    let modalContent = '';
+
+                    // Kiểm tra nếu có thuộc tính iframe thì chèn iframe vào
+                    if (data.iframe) {
+                        modalContent += `
+                            <div class="rounded-xl overflow-hidden shadow-md border border-gray-100 w-full h-[400px] md:h-[500px]">
+                                <iframe src="${data.iframe}" class="w-full h-full border-0" title="${data.title}"></iframe>
+                            </div>
+                        `;
+                    }
+
+                    // Render ảnh tĩnh (nếu có)
+                    if (data.images && data.images.length > 0) {
+                        modalContent += data.images.map(img => `
+                            <div class="rounded-xl overflow-hidden shadow-md border border-gray-100 ${data.iframe ? 'mt-6' : ''}">
+                                <img src="${img}" alt="${data.title}" class="w-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80'">
+                            </div>
+                        `).join('');
+                    }
+
+                    mImages.innerHTML = modalContent;
+                    modalOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        const closeModal = () => {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            setTimeout(() => { mImages.innerHTML = ''; }, 300);
+        };
+
+        btnClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Sử dụng ký tự zero-width space (\u200B) để dẫn đường ngắt câu tiếng Nhật cực kỳ thông minh
+        const textToType = "プログラミングとデザインの\u200B作品を紹介する\u200Bポートフォリオです";
+        const typingElement = document.getElementById('typing-text');
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                let char = textToType.charAt(charIndex);
+                typingElement.innerHTML += char;
+                charIndex++;
+                if (char === '\u200B') {
+                    typeWriter(); // Đắp luôn ký tự tiếp theo ngay lập tức không trễ nhịp
+                } else {
+                    setTimeout(typeWriter, 80);
+                }
+            } else {
+                setTimeout(() => {
+                    typingElement.classList.remove('cursor-blink');
+                }, 3000);
+            }
+        }
+        setTimeout(typeWriter, 500);
+
+        // about
+        // Cấu hình mảng text chứa ký tự ngắt dòng ẩn \u200B tương ứng với từng dòng
+        const aboutLines = [
+            { id: 'about-text-1', text: "こんにちは！" },
+            { id: 'about-text-2', text: "ブイテアインと\u200B申します。\u200Bベトナム出身、\u200B20歳です。" },
+            { id: 'about-text-3', text: "散歩が\u200B好きで、\u200Bプログラミングや\u200Bデザインに\u200B興味があります。" },
+            { id: 'about-text-4', text: "美しい\u200Bインターフェースや\u200B快適な\u200Bユーザー体験を\u200B作ることを\u200B目指しています。" }
+        ];
+        let aboutStarted = false;
+
+        function startAboutTyping() {
+            if (aboutStarted) return;
+            aboutStarted = true;
+
+            let lineIdx = 0;
+            let charIdx = 0;
+
+            function typeLine() {
+                if (lineIdx >= aboutLines.length) return;
+
+                const currentLine = aboutLines[lineIdx];
+                const el = document.getElementById(currentLine.id);
+                if (!el) return;
+
+                // Thêm con trỏ nhấp nháy vào dòng đang gõ
+                el.classList.add('cursor-blink');
+
+                function typeChar() {
+                    if (charIdx < currentLine.text.length) {
+                        let char = currentLine.text.charAt(charIdx);
+                        el.innerHTML += char;
+                        charIdx++;
+                        if (char === '\u200B') {
+                            typeChar(); // Bỏ qua độ trễ nếu gặp ký tự ẩn
+                        } else {
+                            setTimeout(typeChar, 45); // Tốc độ gõ chữ (45ms/ký tự)
+                        }
+                    } else {
+                        // Gõ xong 1 dòng thì xóa con trỏ nhấp nháy, chuyển dòng tiếp theo
+                        el.classList.remove('cursor-blink');
+                        lineIdx++;
+                        charIdx = 0;
+                        setTimeout(typeLine, 250); // Khoảng nghỉ giữa các câu
+                    }
+                }
+                typeChar();
+            }
+            typeLine();
+        }
+
+        // Lắng nghe khi người dùng cuộn tới khu vực About mới kích hoạt hiệu ứng gõ
+        const aboutBox = document.getElementById('about-text-container');
+        if (aboutBox) {
+            const aboutObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    startAboutTyping();
+                    aboutObserver.disconnect(); // Chạy 1 lần duy nhất
+                }
+            }, { threshold: 0.1 });
+            aboutObserver.observe(aboutBox);
+        }
+        // about
+
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -20px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (!navLinks.classList.contains('hidden')) {
+                    navLinks.classList.add('hidden');
+                    navLinks.classList.remove('flex');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
+            });
+        });
+
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. KÍCH HOẠT EMAILJS (Thay bằng Public Key lấy trong mục Account > API Keys của bạn)
+            emailjs.init({
+                publicKey: "0vx3MNj7d5ZazuPZz",
+            });
+
+            const contactForm = document.getElementById('contact-form');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (event) {
+                    event.preventDefault(); // Chặn tải lại trang mặc định
+
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+
+                    // Thay đổi trạng thái nút để tránh click liên tục
+                    submitBtn.textContent = '送信中...';
+                    submitBtn.disabled = true;
+
+                    // Thu thập dữ liệu từ các ô input thông qua thuộc tính 'name'
+                    const formData = new FormData(contactForm);
+                    const templateParams = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        message: formData.get('message')
+                    };
+
+                    try {
+                        // 2. ĐIỀN CÁC THÔNG SỐ ID CỦA BẠN VÀO ĐÂY
+                        const SERVICE_ID = 'service_gmjf7bb'; // Ví dụ: 'service_xxxxxx'
+                        const TEMPLATE_TO_ME = 'template_8mtdchf';  // Mã ID của mẫu "Contact Us" gửi về cho bạn
+                        const TEMPLATE_TO_USER = 'template_hknqsjj'; // Mã ID của mẫu Auto-Reply bạn vừa tạo ở Bước 1
+
+                        // Kích hoạt gửi đồng thời cả 2 thư chạy song song
+                        const sendNotificationToMe = emailjs.send(SERVICE_ID, TEMPLATE_TO_ME, templateParams);
+                        const sendConfirmationToUser = emailjs.send(SERVICE_ID, TEMPLATE_TO_USER, templateParams);
+
+                        // Đợi cả 2 tác vụ gửi thư hoàn thành thành công
+                        await Promise.all([sendNotificationToMe, sendConfirmationToUser]);
+
+                        alert('ありがとうございます！メッセージが送信されました。');
+                        contactForm.reset(); // Xóa sạch dữ liệu trên form sau khi gửi thành công
+
+                    } catch (error) {
+                        console.error('EmailJS Error:', error);
+                        alert('通信エラーが発生しました。もう一度お試しください。');
+                    } finally {
+                        // Trả nút bấm về trạng thái ban đầu
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
